@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 SENSOR</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'PT Sans', sans-serif;
+      background-color: #222020;
+    }
+    
+    .bodyDiv {
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    h1 {
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+    
+    .sensorDiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 35px;
+    }
+
+    .valueDiv {
+      margin: 15px;
+      padding: 25px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .valueDiv p {
+      font-size: 18px;
+      margin: 0;
+      color: #333;
+    }
+
+    #temperature {
+      font-size: 36px;
+      font-weight: bold;
+      color: #FF5733;
+    }
+
+    #humidity {
+      font-size: 36px;
+      font-weight: bold;
+      color: #1E90FF;
+    }
+
+    .buttonGroupDiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .buttonRelay {
+      font-size: 24px;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 5px;
+      background-color: rgb(250, 17, 17);
+      border: none;
+      cursor: pointer;
+      color: #ffffff;
+      transition: background-color 0.3s;
+    }
+
+    .buttonRelay:hover {
+      opacity: 0.75;
+    }
+
+    .state {
+      font-size: 24px;
+      color: #cecdcd;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bodyDiv">
+    <h1>ESP32 SENSOR</h1>
+    <div class="sensorDiv">
+      <div class="valueDiv">
+        <p><span id="temperature">%TEMP%</span> °C</p>
+        <p>Temperature</p>
+      </div>
+      <div class="valueDiv">
+        <p><span id="humidity">%HUMI%</span> %</p>
+        <p>Humidity</p>
+      </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.get("/get_data", function(data){
+              console.log(data)
+              $('#state').text('State: connected');
+              $('#temperature').text(data.temperature);
+              $('#humidity').text(data.humidity);
+            });
+        }, 5000);
+    });
+  </script>
+</body>
+</html>

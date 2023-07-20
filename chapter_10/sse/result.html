@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Real-time Sensor Data</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            }
+            h1 {
+                text-align: center;
+                font-size: 50px;
+                margin-bottom: 30px;
+            }
+            p {
+                text-align: center;
+                font-size: 20px;
+                color: red;
+                margin-top: 0;
+            }
+            .sensor {
+                text-align: center;
+                font-size: 24px;
+                margin-top: 50px;
+            }
+            .sensor .data {
+                font-size: 48px;
+                margin-top: 20px;
+            }
+        </style>
+        <script>
+            var source = new EventSource("/sensor");
+            source.onmessage = function(event) {
+                var sensorData = document.getElementById("sensorData");
+                sensorData.innerHTML = event.data;
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Welcome</h1>
+            <p>Firstname: {firstname}</p>
+            <div class="sensor">
+                <h3 class="title">Real-time Sensor Data</h3>
+                <p class="description">Current Sensor Data:</p>
+                <p class="data" id="sensorData">Attempting to read sensor...</p>
+            </div>
+        </div>
+    </body>
+</html>

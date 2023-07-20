@@ -1,0 +1,190 @@
+[
+    {
+        "id": "f629dfec4b280b9c",
+        "type": "tab",
+        "label": "CoAP_Flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f1a810008dc17f21",
+        "type": "coap request",
+        "z": "f629dfec4b280b9c",
+        "method": "GET",
+        "confirmable": true,
+        "observe": false,
+        "multicast": false,
+        "url": "coap://192.168.0.58/temp",
+        "content-format": "text/plain",
+        "raw-buffer": false,
+        "name": "Temperature Sensor",
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "9c46be954a464e9b"
+            ]
+        ]
+    },
+    {
+        "id": "d7ca0305d121ec81",
+        "type": "inject",
+        "z": "f629dfec4b280b9c",
+        "name": "Get Current Temperature",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "f1a810008dc17f21"
+            ]
+        ]
+    },
+    {
+        "id": "9c46be954a464e9b",
+        "type": "debug",
+        "z": "f629dfec4b280b9c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e66e4385a11660dd",
+        "type": "coap request",
+        "z": "f629dfec4b280b9c",
+        "method": "POST",
+        "confirmable": true,
+        "observe": false,
+        "multicast": false,
+        "url": "coap://192.168.0.58/relay/on",
+        "content-format": "text/plain",
+        "raw-buffer": false,
+        "name": "relay 1 On",
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "6ab1aedd35a65118"
+            ]
+        ]
+    },
+    {
+        "id": "a0c07c8fc03928ff",
+        "type": "inject",
+        "z": "f629dfec4b280b9c",
+        "name": "Relay 1 On",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "e66e4385a11660dd"
+            ]
+        ]
+    },
+    {
+        "id": "1d7592f888c770d0",
+        "type": "coap request",
+        "z": "f629dfec4b280b9c",
+        "method": "PUT",
+        "confirmable": true,
+        "observe": false,
+        "multicast": false,
+        "url": "coap://192.168.0.58/relay/off",
+        "content-format": "text/plain",
+        "raw-buffer": false,
+        "name": "relay 1 Off",
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "f8ce0d06ed5fb7e8"
+            ]
+        ]
+    },
+    {
+        "id": "a753e87d505a1678",
+        "type": "inject",
+        "z": "f629dfec4b280b9c",
+        "name": "Relay 1 Off",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "1d7592f888c770d0"
+            ]
+        ]
+    },
+    {
+        "id": "6ab1aedd35a65118",
+        "type": "debug",
+        "z": "f629dfec4b280b9c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "f8ce0d06ed5fb7e8",
+        "type": "debug",
+        "z": "f629dfec4b280b9c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 300,
+        "wires": []
+    }
+]

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Farm</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="bodyDiv">
+    <h1>Web Socket</h1>
+    <div class="sensorDiv">
+      <div class="valueDiv">
+        <p><span id="temperature">%TEMP%</span> °C</p>
+        <p>Temperature</p>
+      </div>
+      <div class="valueDiv">
+        <p><span id="humidity">%HUMI%</span> %</p>
+        <p>Humidity</p>
+      </div>
+      <div class="valueDiv">
+        <p><span id="soil">%SOIL%</span> %</p>
+        <p>Moiseture</p>
+      </div>
+    </div>
+    <div class="buttonGroupDiv">
+      <a onclick="relay(1)"><button class="buttonRelay" id="relay1"> Relay 1</button></a>
+      <a onclick="relay(2)"><button class="buttonRelay" id="relay2"> Relay 2</button></a>
+      <a onclick="relay(3)"><button class="buttonRelay" id="relay3"> Relay 3</button></a>
+      <a onclick="relay(4)"><button class="buttonRelay" id="relay4"> Relay 4</button></a>
+    </div>
+    <p id="state" class="state">state: wait for connection...</p>
+  </div>
+  </div>
+  <script>
+    var webSocket = null;
+    const state = document.getElementById("state");
+    const tem = document.getElementById("tem");
+
+    function init() {
+      var scheme, defaultPort
+      if (window.location.protocol == 'https:') {
+        scheme = 'wss:';
+        defaultPort = 443;
+      }
+      else {
+        scheme = 'ws:';
+        defaultPort = 80;
+      }
+      var wsUri = scheme + '//' + window.location.hostname;
+      if (window.location.port !== defaultPort) wsUri += ':' + window.location.port;
+
+      // webSocket.writeToScreen("Connecting to " + wsUri + "...");
+      webSocket = new WebSocket(wsUri);
+      webSocket.onopen = function (evt) { onOpen(evt) };
+      webSocket.onclose = function (evt) { onClose(evt) };
+      webSocket.onmessage = function (evt) { onMessage(evt) };
+      webSocket.onerror = function (evt) { onError(evt) };
+    }
+
+    window.addEventListener("load", init, false);
+    function onOpen(evt) {
+      console.log("Open:" + evt.data);
+      webSocket.send("(client) Connect...");
+      state.innerHTML = "state: Connected"
+    }
+
+    function onClose(evt) {
+      console.log("Close:" + evt.data);
+      webSocket.send("(client) Close...");
+      state.innerHTML = "state: Disonnected"
+    }
+
+    function onMessage(evt) {
+      if (evt.data.substring(8, 10) == "ON") {
+        state.innerHTML = "state:" + evt.data;
+        document.getElementById("relay" + evt.data.substring(6, 7)).style.backgroundColor = "rgb(250, 17, 17)";
+      } else if (evt.data.substring(8, 11) == "OFF") {
+        state.innerHTML = "state:" + evt.data;
+        document.getElementById("relay" + evt.data.substring(6, 7)).style.backgroundColor = "rgb(48, 230, 60)";
+      } else if (evt.data.substring(0, 4) == 'data') {
+        const sensor = evt.data.split(",");
+        document.getElementById("temperature").innerHTML = sensor[1];
+        document.getElementById("humidity").innerHTML = sensor[2];
+        document.getElementById("soil").innerHTML = sensor[3];
+      }
+    }
+
+    function relay(number) {
+      let color = document.getElementById("relay" + number);
+      let myDivObjBgColor = window.getComputedStyle(color).backgroundColor
+      if (myDivObjBgColor == "rgb(250, 17, 17)") { // red 
+        console.log("OFF");
+        webSocket.send("Relay_" + number + "_OFF");
+      } else if (myDivObjBgColor == "rgb(48, 230, 60)") { // green
+        console.log("ON");
+        webSocket.send("Relay_" + number + "_ON");
+      }
+    }
+  </script>
+</body>
+
+</html>

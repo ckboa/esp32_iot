@@ -1,0 +1,50 @@
+[
+    {
+        "id": "a2fd993fbef7e063",
+        "type": "mqtt in",
+        "z": "3d47b5293f54df98",
+        "name": "",
+        "topic": "computer/hardware/CPU/speed",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "e8d8f27e5f34cb41",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "380b23764849fa6d"
+            ]
+        ]
+    },
+    {
+        "id": "e8d8f27e5f34cb41",
+        "type": "mqtt-broker",
+        "name": "test_esp",
+        "broker": "192.168.0.52",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": "",
+        "credentials": {}
+    }
+]

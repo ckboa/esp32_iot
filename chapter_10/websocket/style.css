@@ -1,0 +1,107 @@
+/* Set global font */
+body {
+  font-family: Arial, sans-serif;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Center the page content */
+.bodyDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+}
+
+/* Style the heading */
+h1 {
+  font-size: 36px;
+  text-align: center;
+  margin: 0;
+  margin-top: 10px;
+}
+
+/* Style the sensor readings */
+.sensorDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.valueDiv {
+  width: 200px;
+  height: 150px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 10px;
+}
+
+.valueDiv p {
+  margin: 0;
+  font-size: 24px;
+}
+
+.valueDiv p:last-child {
+  font-size: 18px;
+  color: #666;
+}
+
+#temperature {
+  font-size: 36px;
+  font-weight: bold;
+  color: #FF5733;
+}
+
+#humidity {
+  font-size: 36px;
+  font-weight: bold;
+  color: #1E90FF;
+}
+
+#soil {
+  font-size: 36px;
+  font-weight: bold;
+  color: #008000;
+}
+
+/* Style the button group */
+.buttonGroupDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.buttonRelay {
+  font-size: 24px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  background-color: rgb(48, 230, 60);
+  border: none;
+  cursor: pointer;
+}
+
+.buttonRelay:hover {
+  opacity: 0.9;
+}
+
+/* Style the state text */
+.state {
+  font-size: 24px;
+  color: #666;
+}
