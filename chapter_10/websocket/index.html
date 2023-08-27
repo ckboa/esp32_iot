@@ -54,7 +54,6 @@
       var wsUri = scheme + '//' + window.location.hostname;
       if (window.location.port !== defaultPort) wsUri += ':' + window.location.port;
 
-      // webSocket.writeToScreen("Connecting to " + wsUri + "...");
       webSocket = new WebSocket(wsUri);
       webSocket.onopen = function (evt) { onOpen(evt) };
       webSocket.onclose = function (evt) { onClose(evt) };
