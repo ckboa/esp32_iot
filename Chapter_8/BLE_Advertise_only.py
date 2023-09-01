@@ -20,7 +20,7 @@ class ESP32_BLE():
 
     def advertiser(self):
         name = bytes(self.name, 'UTF-8')
-        adv_data = bytearray('\x02\x01\x06') + bytearray((len(name) + 1, 0x09)) + name
+        adv_data = bytearray(b'\x02\x01\x06') + bytearray((len(name) + 1, 0x09)) + name
         self.ble.gap_advertise(100, adv_data)
         print(", ".join(hex(ad) for ad in adv_data))
         print("\r\n")
